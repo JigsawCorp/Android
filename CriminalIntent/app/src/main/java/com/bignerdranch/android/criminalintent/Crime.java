@@ -1,7 +1,10 @@
 package com.bignerdranch.android.criminalintent;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
+
+import static java.text.DateFormat.FULL;
 
 public class Crime {
 
