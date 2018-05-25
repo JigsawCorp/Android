@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,20 @@ import java.util.List;
 
 public class CrimeListFragment extends Fragment {
 
+    private static final String ADAPTER_POSITION_KEY = "adapter_position_key";
+    private static final String TAG = "CrimeListFragment";
+
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private int mAdapterPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
+
+        if(savedInstanceState != null) {
+            mAdapterPosition = savedInstanceState.getInt(ADAPTER_POSITION_KEY, 0);
+        }
 
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -39,16 +48,24 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(ADAPTER_POSITION_KEY, mAdapterPosition);
+    }
+
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
         if(mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
+            mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         }
         else {
-            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemChanged(mAdapterPosition);
+            Log.i(TAG, "notifyItemChanged(), position is: " + mAdapterPosition);
         }
     }
 
@@ -79,6 +96,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
+            mAdapterPosition = getAdapterPosition();
             Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
         }
@@ -110,4 +128,5 @@ public class CrimeListFragment extends Fragment {
         }
 
     }
+
 }
