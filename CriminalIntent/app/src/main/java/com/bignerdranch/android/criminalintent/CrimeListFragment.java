@@ -132,7 +132,7 @@ public class CrimeListFragment extends Fragment {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrimee(crime);
-                Intent intent = CrimePagerActivity();
+                //Intent intent = CrimePagerActivity();
         }
     }
 }
