@@ -48,11 +48,6 @@ public class CrimeListFragment extends Fragment {
         updateUI();
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putInt(ADAPTER_POSITION_KEY, mAdapterPosition);
-    }
 
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
@@ -64,7 +59,8 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         }
         else {
-            mAdapter.notifyItemChanged(mAdapterPosition);
+            //mAdapter.notifyItemChanged(mAdapterPosition);
+            mAdapter.notifyDataSetChanged();
             Log.i(TAG, "notifyItemChanged(), position is: " + mAdapterPosition);
         }
     }
@@ -97,7 +93,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public void onClick(View view) {
             mAdapterPosition = getAdapterPosition();
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
         }
     }
