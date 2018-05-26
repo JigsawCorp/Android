@@ -12,4 +12,11 @@
     <string name="subtitle_format">%1$d crimes</string>
     <string name="crime_jump_first_button">jump to first</string>
     <string name="crime_jump_last_button">jump to last</string>
+    <string name="no_crimes_warning">There are no crimes</string>
+    <string name="create_crime">Create a new crime</string>
+
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$d crime</item>
+        <item quantity="other">%1$d crimes</item>
+    </plurals>
 </resources>
