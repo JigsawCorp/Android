@@ -22,8 +22,12 @@ public class CrimeLab {
         mCrimes = new ArrayList<>();
     }
 
-    public void addCrimee(Crime c) {
+    public void addCrime(Crime c) {
         mCrimes.add(c);
+    }
+
+    public void removeCrime(Crime c) {
+        mCrimes.remove(c);
     }
 
     public List<Crime> getCrimes() {

@@ -97,7 +97,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
             startActivity(intent);
         }
     }
@@ -148,7 +148,7 @@ public class CrimeListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.new_crime:
                 Crime crime = new Crime();
-                CrimeLab.get(getActivity()).addCrimee(crime);
+                CrimeLab.get(getActivity()).addCrime(crime);
                 Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
                 startActivity(intent);
                 return true;
