@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,12 +29,23 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private Callbacks mCallbacks;
     private TextView mNoCrimeWarning;
     private Button mCreateCrimeButton;
 
+    public interface Callbacks {
+        void onCrimeSelected(Crime crime);
+    }
+
     @Override
-    public void onCreate(Bundle savecInstanceState) {
-        super.onCreate(savecInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallbacks = (Callbacks) context;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
@@ -70,7 +82,7 @@ public class CrimeListFragment extends Fragment {
         enableWarning(CrimeLab.get(getActivity()).getCrimes().size());
     }
 
-    private void updateUI() {
+    public void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
@@ -113,8 +125,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
-            startActivity(intent);
+            mCallbacks.onCrimeSelected(mCrime);
         }
     }
 
@@ -167,7 +178,11 @@ public class CrimeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_crime:
-                createCrime();
+                Crime crime = new Crime();
+                CrimeLab.get(getActivity()).addCrime(crime);
+                //createCrime();
+                updateUI();
+                mCallbacks.onCrimeSelected(crime);
                 return true;
              case R.id.show_subtitle:
                  mSubtitleVisible = !mSubtitleVisible;
@@ -205,7 +220,13 @@ public class CrimeListFragment extends Fragment {
         outState.putBoolean(SAVED_SUBTITLE_VISIBLE, mSubtitleVisible);
     }
 
-    private void enableWarning(int size) {
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
+    }
+
+    public void enableWarning(int size) {
         if (size == 0) {
             mNoCrimeWarning.setVisibility(View.VISIBLE);
             mCreateCrimeButton.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 package com.bignerdranch.android.criminalintent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import android.widget.Button;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.Callbacks {
 
     private static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
     private static final String ADAPTER_POSITION_KEY = "adapter_position_key";
@@ -86,6 +87,7 @@ public class CrimePagerActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 Crime crime = mCrimes.get(position);
+                Log.i("CrimePagerActivity: ", "Creating new CrimeFragment");
                 return CrimeFragment.newInstance(crime.getId());
             }
 
@@ -128,4 +130,13 @@ public class CrimePagerActivity extends AppCompatActivity {
             mJumpLastButton.setEnabled(true);
         }
     }
+
+    @Override
+    public void onCrimeUpdated(Crime crime) {}
+
+    @Override
+    public void onCrimeDeleted(Activity activity) {
+        activity.finish();
+    }
+
 }
