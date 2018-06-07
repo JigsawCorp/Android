@@ -95,6 +95,7 @@ public class CrimeListFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
         }
 
+        enableWarning(CrimeLab.get(getActivity()).getCrimes().size());
         updateSubtitle();
     }
 
