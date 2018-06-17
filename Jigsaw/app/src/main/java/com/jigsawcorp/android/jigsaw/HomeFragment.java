@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.UUID;
-
-public class ProfileFragment extends Fragment {
+public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savecInstanceState) {
         super.onCreate(savecInstanceState);

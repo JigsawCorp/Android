@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/bottom_navigation_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/bottom_menu_profile"/>
+
+    <item
         android:id="@+id/bottom_navigation_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Profile"/>
+        android:title="@string/bottom_menu_profile"/>
 
     <item
-        android:id="@+id/navigation_albums"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="Albums"/>
+        android:id="@+id/bottom_navigation_routine"
+        android:icon="@drawable/ic_routine"
+        android:title="@string/bottom_menu_routine"/>
 
     <item
-        android:id="@+id/navigation_artists"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="Artists"/>
+        android:id="@+id/bottom_navigation_progress"
+        android:icon="@drawable/ic_progress"
+        android:title="@string/bottom_menu_progress"/>
 
 </menu>

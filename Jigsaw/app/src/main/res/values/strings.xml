@@ -5,4 +5,8 @@
     <string name="launcherActivity_password">Password</string>
     <string name="launcherActivity_log_in">Log In</string>
     <string name="launcherActivity_log_up">Log Up</string>
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_profile">Profile</string>
+    <string name="bottom_menu_progress">Progress</string>
+    <string name="bottom_menu_routine">Routines</string>
 </resources>

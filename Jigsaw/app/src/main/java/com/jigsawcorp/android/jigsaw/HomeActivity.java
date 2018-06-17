@@ -10,31 +10,39 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = "HomeActivity";
 
     private BottomNavigationView mBottomNavigationView;
     private ViewPager mViewPager;
     private int mAdapterPosition;
     private MenuItem mPrevMenuItem;
+    private static final int NUMBER_OF_MENUS = 4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        setContentView(R.layout.activity_home);
 
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.bottom_navigation_profile:
+                    case R.id.bottom_navigation_home:
                         mViewPager.setCurrentItem(0);
-                    case R.id.navigation_albums:
+                        break;
+                    case R.id.bottom_navigation_profile:
                         mViewPager.setCurrentItem(1);
-                    case R.id.navigation_artists:
+                        break;
+                    case R.id.bottom_navigation_routine:
                         mViewPager.setCurrentItem(2);
+                        break;
+                    case R.id.bottom_navigation_progress:
+                        mViewPager.setCurrentItem(3);
+                        break;
                 }
                 return true;
             }
@@ -72,25 +80,29 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int position) {
+                Log.i(TAG, "getItem: ");
                 switch (position) {
                     case 0:
-                        return new ProfileFragment();
+                        return new HomeFragment();
                     case 1:
-                        return new BFragment();
+                        return new ProfileFragment();
                     case 2:
-                        return new CFragment();
+                        return new RoutinesFragment();
+                    case 3:
+                        return new ProgressFragment();
                         default:
-                            return new ProfileFragment();
+                            return new HomeFragment();
                 }
             }
 
             @Override
             public int getCount() {
-                return mCrimes.size();
+                return NUMBER_OF_MENUS;
             }
 
         });
 
+        mViewPager.setCurrentItem(0);
     }
 
 
