@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Jigsaw</string>
+    <!--LauncherActivity-->
+    <string name="launcherActivity_email">Email</string>
+    <string name="launcherActivity_password">Password</string>
+    <string name="launcherActivity_log_in">Log In</string>
+    <string name="launcherActivity_log_up">Log Up</string>
+</resources>
